@@ -2,7 +2,9 @@
 Case study - stockexchange
 
 This is the master branch for the Case study.
-Individual branches would be created for each microservice.
+
+Individual branches are created for each microservice.
+
 1) companydetails microservice (handles getting company details, comparison among company details, gettinga and adding IPO details etc.)
 2) loginsignup microservice (handles login/ sign up for admin and user)
 3) stockexchangedetails microservice (handles getting stock exchange details)
