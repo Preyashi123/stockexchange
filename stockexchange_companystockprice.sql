@@ -23,13 +23,14 @@ DROP TABLE IF EXISTS `companystockprice`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `companystockprice` (
-  `companyStockPriceId` decimal(10,0) DEFAULT NULL,
+  `companyStockPriceId` int(11) NOT NULL AUTO_INCREMENT,
   `companyCode` decimal(10,0) DEFAULT NULL,
   `stockExchange` varchar(20) DEFAULT NULL,
   `currentPrice` double DEFAULT NULL,
   `stockPriceDate` date DEFAULT NULL,
-  `stockPriceTime` time DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `stockPriceTime` time DEFAULT NULL,
+  PRIMARY KEY (`companyStockPriceId`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -51,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-08-29 13:33:54
+-- Dump completed on 2020-08-29 21:04:03

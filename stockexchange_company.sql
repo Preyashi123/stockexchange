@@ -23,12 +23,14 @@ DROP TABLE IF EXISTS `company`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `company` (
-  `companyId` decimal(10,0) DEFAULT NULL,
+  `companyId` int(11) NOT NULL AUTO_INCREMENT,
   `companyName` varchar(20) DEFAULT NULL,
   `ceo` varchar(20) DEFAULT NULL,
   `sector` varchar(20) DEFAULT NULL,
-  `companyDetails` varchar(20) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `companyCode` decimal(10,0) DEFAULT NULL,
+  `companyDetails` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`companyId`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -37,7 +39,7 @@ CREATE TABLE `company` (
 
 LOCK TABLES `company` WRITE;
 /*!40000 ALTER TABLE `company` DISABLE KEYS */;
-INSERT INTO `company` VALUES (1,'abc','xyz','agr','it is 1 company');
+INSERT INTO `company` VALUES (1,'abc','xyz','agr',1002,'it is 1 company');
 /*!40000 ALTER TABLE `company` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -50,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-08-29 13:33:53
+-- Dump completed on 2020-08-29 21:04:00
