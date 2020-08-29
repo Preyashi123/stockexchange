@@ -6,7 +6,7 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class BoardOfDir {
 	
-	@Column(name="boardofdirname", nullable = false, unique = true)
+	@Column(name="boardofdirname")
 	private String boardOfDirName;
 	
 	

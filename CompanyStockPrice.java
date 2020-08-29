@@ -20,24 +20,24 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class CompanyStockPrice {
 
 	@Id
-	@Column(name="companystockpriceid", nullable = false, unique = true)
+	@Column(name="companystockpriceid")
 	private int companyStockPriceId;
 	
-	@Column(name="companycode", nullable = false, unique = true)
+	@Column(name="companycode")
 	private int companyCode;
 	
-	@Column(name="stockexchange", nullable = false, unique = true)
+	@Column(name="stockexchange")
 	private String stockExchange;
 	
-	@Column(name="currentprice", nullable = false, unique = true)
+	@Column(name="currentprice")
 	private double currentPrice;
 	
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "YYYY-MM-DD")
-	@Column(name="stockpricedate", nullable = false, unique = true)
+	@Column(name="stockpricedate")
 	private Date stockPriceDate;
 	
-	@Column(name="stockpricetime", nullable = false, unique = true)
+	@Column(name="stockpricetime")
 	private LocalTime stockPriceTime;
 	
 	public int getCompanyStockPriceId() {

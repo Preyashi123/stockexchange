@@ -22,32 +22,42 @@ import javax.persistence.Id;
 public class Company {
 
 	@Id
-	@Column(name="companyid", nullable = false, unique = true)
+	@Column(name="companyid")
 	private int companyId;
-	@Column(name="companyname", nullable = false, unique = true)
+	@Column(name="companyname")
 	private String companyName;
+	
+	@Column(name="companycode")
+	private double companyCode;
 	
 	private String ceo;
 	
 	 @ElementCollection
 	  @CollectionTable(
 	        name="company_x_boardofdir",
-	        joinColumns=@JoinColumn(name="assoccompanyid", nullable = false, unique = true)
+	        joinColumns=@JoinColumn(name="assoccompanyid")
 	  )
 	  
 	private List<BoardOfDir> boardOfDirs;
 	
 	private String sector;
-	@Column(name="companydetails", nullable = false, unique = true)
+	@Column(name="companydetails")
 	private String companyDetails;
 	
 	 @ElementCollection
 	  @CollectionTable(
 	        name="company_x_stockexchange",
-	        joinColumns=@JoinColumn(name="assoccompanyid", nullable = false, unique = true)
+	        joinColumns=@JoinColumn(name="assoccompanycode")
 	  )
 	private List<AssocStockExchange> assocStockExchange;
 	
+	 
+	public double getCompanyCode() {
+		return companyCode;
+	}
+	public void setCompanyCode(double companyCode) {
+		this.companyCode = companyCode;
+	}
 	public int getCompanyId() {
 		return companyId;
 	}

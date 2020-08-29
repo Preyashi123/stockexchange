@@ -6,10 +6,10 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class AssocStockExchange {
 
-	@Column(name="stockexchange", nullable = false, unique = true)
+	@Column(name="stockexchange")
 	private String stockexchange;
 	
-	@Column(name="stockcode", nullable = false, unique = true)
+	@Column(name="stockcode")
 	private String stockcode;
 
 	public String getStockexchange() {
