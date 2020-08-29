@@ -13,5 +13,6 @@ Individual branches are created for each microservice.
 
 Naming convention followed:
 com.wellsfargo.stockmarket.<microservice>.<controller/service/entity/repository>.<classname>
-  Example: com.wellsfargo.stockmarket.companydetails.controller.companyController.java
+  
+  Example: com.wellsfargo.stockmarket.companydetails.controller.CompanyController.java
 
