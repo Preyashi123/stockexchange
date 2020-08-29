@@ -1,5 +1,5 @@
-# stockexchange
-Case study - stockexchange
+# stockmarket
+Case study - stockmarket
 
 Microservice - companydetails
 
