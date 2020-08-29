@@ -10,3 +10,8 @@ Individual branches are created for each microservice.
 3) stockexchangedetails microservice (handles getting stock exchange details)
 4) sectordetails microservice (handles getting the sector details, comparison details among sectors etc.)
 5) stockpricedetails microservice (handles the uploading of stock price details)
+
+Naming convention followed:
+com.wellsfargo.stockmarket.<microservice>.<controller/service/entity/repository>.<classname>
+  Example: com.wellsfargo.stockmarket.companydetails.controller.companyController.java
+
