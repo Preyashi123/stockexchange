@@ -12,6 +12,7 @@ Individual branches are created for each microservice.
 5) stockpricedetails microservice (handles the uploading of stock price details)
 
 Naming convention followed:
+
 com.wellsfargo.stockmarket.<microservice>.<controller/service/entity/repository>.<classname>
   
   Example: com.wellsfargo.stockmarket.companydetails.controller.CompanyController.java
