@@ -14,6 +14,9 @@ public class Stock {
 	private String companyName;
 	@Column
 	private double price;
+	@Column 
+	private String date;
+	
 	public Stock() {
 		
 	}
@@ -35,5 +38,12 @@ public class Stock {
 	public void setPrice(double price) {
 		this.price = price;
 	}
+	public String getDate() {
+		return date;
+	}
+	public void setDate(String date) {
+		this.date = date;
+	}
+	
 	
 }

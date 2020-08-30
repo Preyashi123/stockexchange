@@ -20,7 +20,7 @@ public class SectorService {
 	}
 
 	public Sector getSector(Integer sectorid) {
-		return sectorRepo.getOne(sectorid);
+		return sectorRepo.findById(sectorid).get();
 	}
 
 	public void addSector(Sector sector) {
