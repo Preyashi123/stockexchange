@@ -13,7 +13,7 @@ import com.wellsfargo.stockmarket.loginsignup.entity.User;
 
 @Repository
 public interface UserRepository extends JpaRepository <User, String> {
-	//
+
 	User findByUserName(String username);
 		
 }
