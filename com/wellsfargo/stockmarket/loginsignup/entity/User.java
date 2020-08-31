@@ -8,7 +8,7 @@ public class User {
    
 	@Column(name = "userid")
 	@GeneratedValue(strategy = GenerationType.AUTO)
-    private static long userId = 1;
+    private long userId;
     
     @Column(name="isadmin")
     private boolean isAdmin;
@@ -31,18 +31,19 @@ public class User {
     }
     public User(String userName,String password, String email,boolean isAdmin) {
     	super();
-    	this.userId++;
     	this.userName = userName;
     	this.password = password;
     	this.email = email;
     	this.isAdmin = isAdmin;
     	
-    
-    	
     }
 
     public void setUserId() {
         this.userId++;
+    }
+
+    public void getUserId(){
+        return userId;
     }
 
     public String getUserName() {
@@ -61,12 +62,8 @@ public class User {
         this.password = password;
     }
 
-    public boolean isAdmin() {
+    public boolean getIsAdmin() {
         return isAdmin;
-    }
-
-    public void setIsAdmin(boolean isAdmin) {
-        this.isAdmin = isAdmin;
     }
 
     public String getEmail() {
