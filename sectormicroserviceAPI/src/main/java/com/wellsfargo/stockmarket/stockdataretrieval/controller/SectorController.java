@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.wellsfargo.stockmarket.stockdataretrieval.model.Company;
 import com.wellsfargo.stockmarket.stockdataretrieval.model.Sector;
+import com.wellsfargo.stockmarket.stockdataretrieval.model.SectorPriceModel;
 import com.wellsfargo.stockmarket.stockdataretrieval.service.SectorService;
 
 @RestController
@@ -20,6 +21,9 @@ public class SectorController {
 	@Autowired
 	private SectorService sectorService;
 	
+	@Autowired
+	private SectorPriceModel sectorPriceModel;
+	
 	// This get request is to return the list of all the sectors 
 	@RequestMapping("/sectors")
 	public List<Sector> getAllSectors(){
@@ -27,33 +31,33 @@ public class SectorController {
 	}
 	
 	// This get request is to return the sector based on the sector id
-	@GetMapping("/sectors/{sectorid}")
+	@RequestMapping("/sectors/{sectorid}")
 	public Sector getSector(@PathVariable Long sectorid){
 		return sectorService.getSector(sectorid);
 	}
 	
 	// This get request returns the list of all the companies in a particular sector
-	@GetMapping("/sectors/{sectorid}/companies")
+	@RequestMapping("/sectors/{sectorid}/companies")
 	public List<Company> getCompany(@PathVariable Long sectorid){
 		return sectorService.getCompany(sectorid);
 	}
 	
-	//This get request returns the average price of all the stocks in a sector
-	@GetMapping("/sectors/{sectorid}/price")
-	public String getPrice(@PathVariable Long sectorid){
-		return sectorService.getPrice(sectorid);
+	//This get request returns the average price of all the stocks in a list of sectors
+	@RequestMapping("/sectors/price")
+	public List<String> getPrice(@RequestBody SectorPriceModel sectorPriceModel){
+		return sectorService.getPrice(sectorPriceModel);
 	}
 	
-	// This get request returns the average price of all the stocks in a sector within a given date 
-	@GetMapping("/sectors/{sectorid}/price/{from}/{to}")
-	public String getFromToPrice(@PathVariable Long sectorid, @PathVariable String from, @PathVariable String to){
-		return sectorService.getFromToPrice(sectorid, from, to);
+	// This get request returns the average price of all the stocks in a list of sectors within a given date 
+	@RequestMapping("/sectors/price/{from}/{to}")
+	public List<String> getFromToPrice(@RequestBody SectorPriceModel sectorPriceModel){
+		return sectorService.getFromToPrice(sectorPriceModel);
 	}
 	
-	// This get request returns the average price of all the stocks in a sector for the last period days mentioned
-	@GetMapping("/sectors/{sectorid}/price/{period}")
-	public String getPeriodPrice(@PathVariable Long sectorid, @PathVariable Integer period){
-		return sectorService.getPeriodPrice(sectorid,period);
+	// This get request returns the average price of all the stocks in a list of sectors for the last period days mentioned
+	@RequestMapping("/sectors/price/{period}")
+	public List<String> getPeriodPrice(@RequestBody SectorPriceModel sectorPriceModel){
+		return sectorService.getPeriodPrice(sectorPriceModel);
 	}
 	
 	

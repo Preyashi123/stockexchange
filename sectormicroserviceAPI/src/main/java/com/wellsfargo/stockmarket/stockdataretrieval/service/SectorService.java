@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.wellsfargo.stockmarket.stockdataretrieval.repository.SectorRepo;
 import com.wellsfargo.stockmarket.stockdataretrieval.model.Company;
 import com.wellsfargo.stockmarket.stockdataretrieval.model.Sector;
+import com.wellsfargo.stockmarket.stockdataretrieval.model.SectorPriceModel;
 import com.wellsfargo.stockmarket.stockdataretrieval.model.Stock;
 import com.wellsfargo.stockmarket.stockdataretrieval.repository.CompanyRepo;
 import com.wellsfargo.stockmarket.stockdataretrieval.repository.StockRepo;
@@ -54,77 +55,110 @@ public class SectorService {
 		return companyRepo.findBySectorName(sector.getSectorName());
 	}
 	
-	public String getPrice(Long sectorid) {
+	public List<String> getPrice(SectorPriceModel sectorPriceModel) {
 		double price = 0.0;
 		double averageSectorPrice = 0.0;
-		List<Company> companies = getCompany(sectorid);
-		for(Company c: companies) {
-			String companyName = c.getCompanyName();
-			List<Stock> stocks = getStocks(companyName);
-			for(Stock s: stocks) {
-				price = price + s.getPrice();
+		List<String> res = null;
+		List<Long> sectoridList = sectorPriceModel.getSectoridList();
+		for(Long sectorid : sectoridList) {
+			Sector sector = getSector(sectorid);
+			String sectorName = sector.getSectorName();
+			List<Company> companies = getCompany(sectorid);
+			for(Company c: companies) {
+				String companyName = c.getCompanyName();
+				List<Stock> stocks = getStocks(companyName);
+				for(Stock s: stocks) {
+					price = price + s.getPrice();
+				}
+			}
+		
+			if(companies.size() == 0) {
+				res.add("No Companies in this sector");
+			}
+			else {
+				averageSectorPrice = (double)price/companies.size();
+				if(averageSectorPrice != 0.0)
+					res.add("Average Price for " + sectorName + " is " + averageSectorPrice);
+				else
+					res.add("No Stocks in the sector " + sectorName );
 			}
 		}
-		averageSectorPrice = (double)price/companies.size();
-		if(companies.size() == 0) {
-			return "No Companies in this sector";
-		}
-		return "Average Sector Price is " + averageSectorPrice;
+		return res;
 	}
 	
-	public String getFromToPrice(Long sectorid, String from, String to){
+	public List<String> getFromToPrice(SectorPriceModel sectorPriceModel){
 		double price = 0.0;
 		double averageSectorPriceFromTo = 0.0;
+		List<String> res = null;
+		String from = sectorPriceModel.getFrom();
+		String to = sectorPriceModel.getTo();
+		List<Long> sectoridList = sectorPriceModel.getSectoridList();
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("d/MM/yyyy");
 		LocalDate fromDate = LocalDate.parse(from,dtf);
 		LocalDate toDate = LocalDate.parse(to,dtf);
-		List<Company> companies = getCompany(sectorid);
-		for(Company c: companies) {
-			String companyName = c.getCompanyName();
-			List<Stock> stocks = getStocks(companyName);
-			for(Stock s: stocks) {
-				LocalDate stockDate = LocalDate.parse(s.getDate(),dtf);
-				if(stockDate.isAfter(fromDate) && stockDate.isBefore(toDate)) {
-					price = price + s.getPrice();
+		for(Long sectorid: sectoridList) {
+			Sector sector = getSector(sectorid);
+			String sectorName = sector.getSectorName();
+			List<Company> companies = getCompany(sectorid);
+			for(Company c: companies) {
+				String companyName = c.getCompanyName();
+				List<Stock> stocks = getStocks(companyName);
+				for(Stock s: stocks) {
+					LocalDate stockDate = LocalDate.parse(s.getDate(),dtf);
+					if(stockDate.isAfter(fromDate) && stockDate.isBefore(toDate)) {
+						price = price + s.getPrice();
+					}
 				}
 			}
+			if(companies.size() == 0) {
+				res.add("No Companies in this sector");
+			}
+			else {
+				averageSectorPriceFromTo = (double)price/companies.size();
+				if(averageSectorPriceFromTo != 0.0)
+					res.add("Average Price for " + sectorName + " from " + fromDate + " to " + toDate + " is " + averageSectorPriceFromTo);
+				else
+					res.add("No Stocks in the sector " + sectorName + " from " + fromDate + " to " + toDate);
+			}
+			
 		}
-		if(companies.size() == 0) {
-			return "No Companies in this sector";
-		}
-		averageSectorPriceFromTo = (double)price/companies.size();
-		if(averageSectorPriceFromTo != 0.0)
-			return "Average Sector Price from " + fromDate + " to " + toDate + " is " + averageSectorPriceFromTo;
-		else
-			return "No Stocks in the sector from " + fromDate + " to " + toDate;
+		return res;
 	}
 
-	public String getPeriodPrice(Long sectorid, Integer period) {
+	public List<String> getPeriodPrice(SectorPriceModel sectorPriceModel) {
 		double price = 0.0;
 		double averageSectorPricePeriod = 0.0;
+		List<String> res = null;
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("d/MM/yyyy");
 		String currentDate = "30/08/2020";
+		Long period = sectorPriceModel.getPeriod();
+		List<Long> sectoridList = sectorPriceModel.getSectoridList();
 		LocalDate currentLocalDate = LocalDate.parse(currentDate,dtf);
 		LocalDate fromDate = currentLocalDate.minusDays(period);
-		List<Company> companies = getCompany(sectorid);
-		for(Company c: companies) {
-			String companyName = c.getCompanyName();
-			List<Stock> stocks = getStocks(companyName);
-			for(Stock s: stocks) {
-				LocalDate stockDate = LocalDate.parse(s.getDate(),dtf);
-				if(stockDate.isAfter(fromDate) && stockDate.isBefore(currentLocalDate)) {
-					price = price + s.getPrice();
+		for(Long sectorid: sectoridList) {
+			Sector sector = getSector(sectorid);
+			String sectorName = sector.getSectorName();
+			List<Company> companies = getCompany(sectorid);
+			for(Company c: companies) {
+				String companyName = c.getCompanyName();
+				List<Stock> stocks = getStocks(companyName);
+				for(Stock s: stocks) {
+					LocalDate stockDate = LocalDate.parse(s.getDate(),dtf);
+					if(stockDate.isAfter(fromDate) && stockDate.isBefore(currentLocalDate)) {
+						price = price + s.getPrice();
+					}
 				}
 			}
+			if(companies.size() == 0) {
+				res.add("No Companies in this sector");
+			}
+			averageSectorPricePeriod = (double)price/companies.size();
+			if(averageSectorPricePeriod != 0.0)
+				res.add("Average Sector Price for" + sectorName + " for a period of " + period + " days is " + averageSectorPricePeriod);
+			else
+				res.add("No stocks in the sector " + sectorName + " for last " + period + "days");
 		}
-		if(companies.size() == 0) {
-			return "No Companies in this sector";
-		}
-		averageSectorPricePeriod = (double)price/companies.size();
-		if(averageSectorPricePeriod != 0.0)
-			return "Average Sector Price for a period of " + period + " days is " + averageSectorPricePeriod;
-		else
-			return "No stocks in the sector for last " + period + "days";
+		return res;
 	}
 	
 }

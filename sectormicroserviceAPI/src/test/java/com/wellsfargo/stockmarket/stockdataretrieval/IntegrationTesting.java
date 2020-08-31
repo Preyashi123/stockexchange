@@ -1,7 +1,14 @@
 package com.wellsfargo.stockmarket.stockdataretrieval;
 
+import static org.hamcrest.CoreMatchers.is;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.doReturn;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import org.json.JSONException;
 import org.junit.jupiter.api.BeforeEach;
@@ -42,15 +49,35 @@ public class IntegrationTesting {
 	private SectorService sectorService;
 	
 	@Test
+	@DisplayName("Test all sectors found - GET /sectors")
+	public void testAllSectorsFound() throws Exception{
+		Sector firstSector = new Sector(1L,"first sector","this is first sector");
+		
+		List<Sector> sectors = new ArrayList<>();
+		sectors.add(firstSector);
+		
+		doReturn(sectors).when(sectorService).getAllSectors();
+
+		mockMvc.perform(MockMvcRequestBuilders.get("/sectors"))
+		.andExpect(status().isOk())
+		.andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+		.andExpect(jsonPath("$[0].sectorName",is("first sector")));
+	}
+	
+	@Test
 	@DisplayName("Test Sector Found - GET /sectors/1")
 	public void testGetSectorById() throws Exception{
 		
 		Sector mockSector = new Sector(1L,"mock","this is mock sector");
-		Mockito.when(sectorService.getSector(1L)).thenReturn(mockSector);
-		RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/sectors/102").accept(MediaType.APPLICATION_JSON);
-		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
-		String expected = "{'sectorId':1,'sectorName':'mock','sectorBrief':'this is mock sector'}";
-		JSONAssert.assertEquals(expected, result.getResponse().getContentAsString(),false);
+		doReturn(mockSector).when(sectorService).getSector(mockSector.getSectorId());
+		
+		mockMvc.perform(MockMvcRequestBuilders.get("/sectors/{sectorid}", 1))
+		.andExpect(status().isOk())
+		.andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+		.andExpect(jsonPath("$.sectorId",is(1)))
+		.andExpect(jsonPath("$.sectorName",is("mock")))
+		.andExpect(jsonPath("$.sectorBrief",is("this is mock sector")));
 	}
+	
 
 }
