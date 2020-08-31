@@ -1,4 +1,4 @@
-package com.wellsfargo.stockmarket.stockdataretrieval;
+package com.wellsfargo.stockmarket.stockdataretrieval.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -10,7 +10,7 @@ import javax.persistence.Column;
 @Table(name="sector")
 public class Sector {
 	@Id
-	private int sectorId;
+	private Long sectorId;
 	@Column
 	private String sectorName;
 	@Column
@@ -18,7 +18,7 @@ public class Sector {
 	public Sector() {
 		
 	}
-	public Sector(int sectorId, String sectorName, String sectorBrief) {
+	public Sector(Long sectorId, String sectorName, String sectorBrief) {
 		super();
 		this.sectorId = sectorId;
 		this.sectorName = sectorName;
@@ -27,7 +27,7 @@ public class Sector {
 	public long getSectorId() {
 		return sectorId;
 	}
-	public void setSectorId(int sectorId) {
+	public void setSectorId(Long sectorId) {
 		this.sectorId = sectorId;
 	}
 	public String getSectorName() {
@@ -46,5 +46,4 @@ public class Sector {
 	public String toString() {
 		return "Sector [sectorId=" + sectorId + ", sectorName=" + sectorName + ", sectorBrief=" + sectorBrief + "]";
 	}
-	
 }

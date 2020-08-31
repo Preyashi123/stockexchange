@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SectormicroserviceApiApplication {
+public class SectormicroserviceApi1Application {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SectormicroserviceApiApplication.class, args);
+		SpringApplication.run(SectormicroserviceApi1Application.class, args);
 	}
 
 }

@@ -1,4 +1,4 @@
-package com.wellsfargo.stockmarket.stockdataretrieval;
+package com.wellsfargo.stockmarket.stockdataretrieval.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
