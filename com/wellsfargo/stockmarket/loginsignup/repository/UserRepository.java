@@ -14,7 +14,6 @@ import com.wellsfargo.stockmarket.loginsignup.entity.User;
 @Repository
 public interface UserRepository extends JpaRepository <User, String> {
 	
-	//@Query("SELECT u.password from User u WHERE u.username='user1' ")
-	 Optional<User> findById(String username);
+	User findByUserName(String username);
 		
 }

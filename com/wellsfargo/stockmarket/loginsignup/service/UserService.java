@@ -35,10 +35,11 @@ public class UserService {
 //	}
 	public String findbyID(String username,String password) {
 		
-		Optional<User> userEn =  userRepository.findById(username);
-		if(userEn.isPresent()) {
-			User userEntity = userEn.get();
-			if(userEntity.getPassword().equals(password))
+		//Optional<User> userEn =  userRepository.findById(username);
+		user = userRepository.findByUserName(username);
+		if(user != null) {
+			//User userEntity = userEn.get();
+			if(user.getPassword().equals(password))
 				return "<h1>SUCCESS</h1>";
 			else
 				return "<h1>WRONG PASSWORD</h1>";
@@ -50,9 +51,9 @@ public class UserService {
 
 	public String addUser(String username, String password, String email, boolean isAdmin) {
 		// TODO Auto-generated method stub
-		Optional<User> userEn =  userRepository.findById(username);
+		user =  userRepository.findByUserName(username);
 			
-		if(!userEn.isPresent()){
+		if(user == null){
 			User user = new  User (username, password, email, isAdmin);
 			user.setVerified(true);
 			userRepository.save(user);
@@ -66,16 +67,16 @@ public class UserService {
 	  public String updateUser(String username, String password, String email) {
 	 
 		// TODO Auto-generated method stub
-		Optional<User> userEn = userRepository.findById(username);	
-		User u = userEn.get();
-		if(u.getUserName().equals(username)) {
-			u.setEmail(email);
-			u.setPassword(password);
-			userRepository.save(u);
+		user = userRepository.findByUserName(username);	
+		
+		if(user!= null && user.getUserName().equals(username)) {
+			user.setEmail(email);
+			user.setPassword(password);
+			userRepository.save(user);
 			return "<h1> USER UPDATED</h1>";
 		}
 		else 
-			return "<h1> USER NOT UPDATED</h1>";
+			return "<h1> USER NOT PRESENT</h1>";
 	}
 
 	/*public String updateUser(User user) {
