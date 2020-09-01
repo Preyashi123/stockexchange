@@ -15,5 +15,6 @@ import com.wellsfargo.stockmarket.loginsignup.entity.User;
 public interface UserRepository extends JpaRepository <User, String> {
 
 	User findByUserName(String username);
+	User findByEmail (String email);
 		
 }
