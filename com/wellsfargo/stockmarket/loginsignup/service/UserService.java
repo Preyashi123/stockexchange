@@ -41,10 +41,15 @@ public class UserService {
 		user =  userRepository.findByUserName(username);
 			
 		if(user == null){
-			User user = new  User (username, password, email, isAdmin);
-			user.setVerified(true);
-			userRepository.save(user);
-			return "<h1>USER ADDED</h1>";
+			user = userRepository.findByEmail(String email);
+			if(user == null){
+				User user = new  User (username, password, email, isAdmin);
+				user.setVerified(true);
+				userRepository.save(user);
+				return "<h1>USER ADDED</h1>";
+			}
+			else
+				return "<h1>EMAIL ALREADY PRESENT</h1>";
 		}
 		else
 			return "<h1>USER ALREADY PRESENT</h1>";
@@ -56,7 +61,7 @@ public class UserService {
 		// TODO Auto-generated method stub
 		user = userRepository.findByUserName(username);	
 		
-		if(user!= null && user.getUserName().equals(username)) {
+		if(user!= null) {
 			user.setEmail(email);
 			user.setPassword(password);
 			userRepository.save(user);
