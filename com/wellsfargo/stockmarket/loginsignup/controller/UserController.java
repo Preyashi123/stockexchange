@@ -24,21 +24,21 @@ public class UserController {
 	
 
 	@RequestMapping("/login")
-	public String login(@RequestParam String username, @RequestParam String password) {
+	public String login(@RequestParam (required = false) String username, @RequestParam (required = false) String password) {
 		
 		return userService.findbyID(username, password);
 
 	}
 
 	@RequestMapping("/newUser")
-	public String addUser(@RequestParam String username, @RequestParam String password, @RequestParam String email,
+	public String addUser(@RequestParam (required = false) String username, @RequestParam String (required = false) password, @RequestParam (required = false) String email,
 			@RequestParam boolean isAdmin) {
 		return userService.addUser(username, password, email, isAdmin) ;
 
 	}
 
 	@RequestMapping("/update")
-	public String update(@RequestParam String username, @RequestParam String password, @RequestParam String email) {
+	public String update(@RequestParam (required = false) String username, @RequestParam (required = false) String password, @RequestParam (required = false) String email) {
 		return userService.updateUser(username, password, email) ;
 
 	}
