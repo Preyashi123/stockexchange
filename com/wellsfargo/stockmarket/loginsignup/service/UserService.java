@@ -26,13 +26,19 @@ public class UserService {
 		user = userRepository.findByUserName(username);
 		if(user != null) {
 			
-			if(user.getPassword().equals(password))
+			if(user.getPassword().equals(password)){
+				// TODO - REMOVE IT WHEN UI IMPLEMENTATION IS DONE
 				return "<h1>SUCCESS</h1>";
-			else
+			}
+			else{
+				// TODO - REMOVE IT WHEN UI IMPLEMENTATION IS DONE
 				return "<h1>WRONG PASSWORD</h1>";
+			}
 		}
-		else
+		else {
+			// TODO - REMOVE IT WHEN UI IMPLEMENTATION IS DONE
 			return "<h1>USER NOT PRESENT</h1>" ;
+		}
 		 
 	}
 
@@ -46,13 +52,18 @@ public class UserService {
 				User user = new  User (username, password, email, isAdmin);
 				user.setVerified(true);
 				userRepository.save(user);
+				// TODO - REMOVE IT WHEN UI IMPLEMENTATION IS DONE
 				return "<h1>USER ADDED</h1>";
 			}
-			else
+			else{
+				// TODO - REMOVE IT WHEN UI IMPLEMENTATION IS DONE
 				return "<h1>EMAIL ALREADY PRESENT</h1>";
+			}
 		}
-		else
+		else{
+			// TODO - REMOVE IT WHEN UI IMPLEMENTATION IS DONE
 			return "<h1>USER ALREADY PRESENT</h1>";
+		}
 	}
 
 	
@@ -65,10 +76,13 @@ public class UserService {
 			user.setEmail(email);
 			user.setPassword(password);
 			userRepository.save(user);
+			// TODO - REMOVE IT WHEN UI IMPLEMENTATION IS DONE
 			return "<h1> USER UPDATED</h1>";
 		}
-		else 
+		else {
+			// TODO - REMOVE IT WHEN UI IMPLEMENTATION IS DONE
 			return "<h1> USER NOT PRESENT</h1>";
+		}
 	}
 
 }
